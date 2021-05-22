@@ -190,16 +190,8 @@ class BaseRepository
      */
     protected function _validate(\Illuminate\Validation\Validator $validator)
     {
-        if (!empty($attributeNames = $this->validatorAttributeNames())) {
+        if (!empty($attributeNames = $this->validatorAttributeNames()))
             $validator->setAttributeNames($attributeNames);
-        }
-
-        if ($validator->fails()) {
-            return false;
-            throw (new ValidationException)->setValidator($validator);
-        }
-
-        return true;
+        return !$validator->fails();
     }
-
 }
